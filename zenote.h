@@ -30,20 +30,47 @@ public:
 	
 	void setFilename (string name); // set file name
 	void setAuthor(string author); // set Author
-  void write(); // basically set content
-  string getFilename() { return m_filename; }
+	void write(string testCont=""); // basically set content
+	string getFilename() { return m_filename; }
 	string getAuthor() { return m_author; }
 	string getContent() { return m_content; } 
-
+	void clearContent();
 private:
-	// filename
 	string m_filename;
-	// content
 	string m_content;
-	// date made
-	// tm m_date;
-	// Author (get user)
 	string m_author;
 };
+
+class zFile { // only saves as a .zn file
+public:
+	friend class zenote;
+	zFile() {
+		zenote zn;
+		m_zn.setFilename(zn.getFilename());
+		m_zn.setAuthor(zn.getAuthor());
+		m_zn.write(zn.getContent());
+	}
+	~zFile() {
+		m_zn.setFilename("");
+		m_zn.setAuthor("");
+		m_zn.clearContent();
+	}	
+	void setZn(zenote zn) {
+		m_zn.setFilename(zn.getFilename());
+		m_zn.setAuthor(zn.getAuthor());
+		m_zn.write(zn.getContent());
+	}	
+	string writeToFile() {
+		string toWrite = m_zn.getFilename();
+		toWrite += ".zn"; // adds .zn suffix
+
+		cout << toWrite << endl;
+		return toWrite;
+	}	
+private:
+	zenote m_zn;
+};
+
+
 
 #endif

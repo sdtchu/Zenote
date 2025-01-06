@@ -14,24 +14,37 @@ public:
 		return result;
 	}
 
-  bool zenoteOvldConstructorTest() {
-    bool result = true;
-    zenote zn("zenote", "seth");
-    result = (zn.getFilename() == "zenote") && (zn.getAuthor() == "seth")
-      && (zn.getContent() == "");
+	bool zenoteOvldConstructorTest() {
+		 bool result = true;
+		 zenote zn("zenote", "seth");
+		 result = (zn.getFilename() == "zenote") && (zn.getAuthor() == "seth")
+		 && (zn.getContent() == "");
+		 return result;
+	}
 
-    return result;
-  }
+	bool writeTest() {
+		bool result = true;
+		zenote zn;
+		zn.write();
+		result = (zn.getContent() != "");
+		cout << zn.getContent() << endl;
 
-  bool writeTest() {
-    bool result = true;
-    zenote zn;
-    zn.write();
-    result = (zn.getContent() != "");
-    cout << zn.getContent() << endl;
+		return result;
+	}
 
-    return result;
-  }
+	bool writeToFileTest() {
+		bool result = true;
+		zenote zn;
+		zn.write();
+		zFile zf;
+		zf.setZn(zn);
+		string file = zn.getFilename();
+		file += ".zn";
+		if(zf.writeToFile() == file) {
+			return result;
+		}
+		return false;
+	}
 };
 
 int main() {
