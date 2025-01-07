@@ -12,7 +12,7 @@ class zenote;
 class zFile;
 class tester;
 
-const string PATH = "home/kreemy/projects/Zenote/znf/";
+const string PATH = "znf/";
 
 class zenote {
 public:
@@ -68,19 +68,20 @@ public:
 	string writeToFile() {
 		string toWrite = m_zn.getFilename();
 		toWrite += ".zn"; // adds .zn suffix
-		// string fullPath = PATH + toWrite;
-		string fullPath = toWrite;
+		string fullPath = PATH + toWrite;
 		
 		// should open/create file
 		ofstream file(fullPath);
-		if (!outputFile)
+		if (!file)
 			cerr << "Error: Creation or open error" << endl;
 
 		// puts content into file
-		outputFile << m_zn.getContent() << endl;
+		file << m_zn.getContent() << endl;
+		cout << m_zn.getContent() << endl;
 
+		file.flush();
 		// close file	
-		outputFile.close();
+		file.close();
 
 		cout << "File saved in " << fullPath << endl;
 		return toWrite;

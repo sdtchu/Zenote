@@ -13,11 +13,14 @@ void zenote::write(string testCont) {
 	if (content == "") { // if not testing
 		cout << ">>";
 		// continuous keyboard entry until vim quit motion, however, only saves most recent entry i guess
-		while((getline(cin, x)) && (x != ":q")) {
+		while((getline(cin, x))) {
+			if (x == ":q")
+				break;	
 			cout << ">>";
 			content += '\n' + x;
 		}
 	}
+	cout << content << endl;
 	m_content = content;	
 }
 
