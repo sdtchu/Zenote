@@ -2,12 +2,17 @@
 #define ZENOTE_H
 
 #include <iostream>
+#include <fstream>
 #include <time.h>
 #include <string>
+#include <cstdlib>
+
 using namespace std;
 class zenote;
 class zFile;
 class tester;
+
+const string PATH = "home/kreemy/projects/Zenote/znf/";
 
 class zenote {
 public:
@@ -63,9 +68,39 @@ public:
 	string writeToFile() {
 		string toWrite = m_zn.getFilename();
 		toWrite += ".zn"; // adds .zn suffix
+		// string fullPath = PATH + toWrite;
+		string fullPath = toWrite;
+		
+		// should open/create file
+		ofstream file(fullPath);
+		if (!outputFile)
+			cerr << "Error: Creation or open error" << endl;
 
-		cout << toWrite << endl;
+		// puts content into file
+		outputFile << m_zn.getContent() << endl;
+
+		// close file	
+		outputFile.close();
+
+		cout << "File saved in " << fullPath << endl;
 		return toWrite;
+	}
+
+	void initZn(bool test=false) {
+		string setFn = "";
+		const char* username = getenv("USER"); // get user name
+		string str(username);
+		m_zn.setAuthor(username);
+		if (test) {
+			cout << "Enter your filename: ";
+			cin >> setFn;
+			cout << endl;	
+			m_zn.setFilename(setFn);
+		} else {
+			m_zn.setFilename("test");
+		}
+		m_zn.write();
+		writeToFile();
 	}	
 private:
 	zenote m_zn;

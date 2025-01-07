@@ -28,8 +28,14 @@ public:
 		zn.write();
 		result = (zn.getContent() != "");
 		cout << zn.getContent() << endl;
+		char confirm = 'n';
+		cout << "Confirm correct entry ('y' or 'n'): ";
+		cin >> confirm;
 
-		return result;
+		if (confirm == 'y')
+			return result;
+		else
+			return false;
 	}
 
 	bool writeToFileTest() {
@@ -55,15 +61,18 @@ int main() {
 	else
 		cout << "Constructor Test Failed" << endl;	
 
-  if (test.zenoteOvldConstructorTest())
-    cout << "Overloaded Constructor Test Passed" << endl;
-  else
-    cout << "Overloaded Constructor Test Failed" << endl;
-  if (test.writeTest())
-    cout << "Write Test Passed" << endl;
-  else
-    cout << "Write Test Failed" << endl;
-
+	if (test.zenoteOvldConstructorTest())
+		cout << "Overloaded Constructor Test Passed" << endl;
+	else
+		cout << "Overloaded Constructor Test Failed" << endl;
+	if (test.writeTest())
+		cout << "Write Test Passed" << endl;
+	else
+		cout << "Write Test Failed" << endl;
+	if (test.writeToFileTest())
+		cout << "Write To File Test Passed" << endl;
+	else
+		cout << "Write To File Test Failed" << endl;
 
   return 0;
 }
